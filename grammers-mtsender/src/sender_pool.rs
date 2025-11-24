@@ -171,10 +171,16 @@ impl SenderPoolRunner {
         loop {
             tokio::select! {
                 biased;
-                completion = self.connection_pool.join_next(), if !self.connection_pool.is_empty() => {
-                    if let Err(err) = completion.unwrap() {
-                        if let Ok(reason) = err.try_into_panic() {
-                            panic::resume_unwind(reason);
+                maybe_join_result = self.connection_pool.join_next() => {
+                    match maybe_join_result {
+                        Some(join_result) => {
+                            if let Err(join_error) = join_result {
+                                if let Ok(reason) = join_error.try_into_panic() {
+                                    panic::resume_unwind(reason);
+                                }
+                            }
+                        }
+                        _ => {
                         }
                     }
                     self.connections
