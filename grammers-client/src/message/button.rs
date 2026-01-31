@@ -36,6 +36,7 @@ impl Button {
                 text: text.into(),
                 data: bytes.into(),
                 requires_password: false,
+                style: None, // TODO: add style
             }
             .into(),
         }
@@ -48,6 +49,7 @@ impl Button {
     pub fn switch<T: Into<String>, Q: Into<String>>(text: T, query: Q) -> Button {
         Button {
             raw: tl::types::KeyboardButtonSwitchInline {
+                style: None, // TODO: add style
                 text: text.into(),
                 query: query.into(),
                 same_peer: true,
@@ -64,6 +66,7 @@ impl Button {
     pub fn switch_elsewhere<T: Into<String>, Q: Into<String>>(text: T, query: Q) -> Button {
         Button {
             raw: tl::types::KeyboardButtonSwitchInline {
+                style: None, // TODO: add style
                 text: text.into(),
                 query: query.into(),
                 same_peer: false,
@@ -80,6 +83,7 @@ impl Button {
     pub fn url<T: Into<String>, U: Into<String>>(text: T, url: U) -> Button {
         Button {
             raw: tl::types::KeyboardButtonUrl {
+                style: None, // TODO: add style
                 text: text.into(),
                 url: url.into(),
             }
@@ -91,6 +95,7 @@ impl Button {
     pub fn webview<T: Into<String>, U: Into<String>>(text: T, url: U) -> Button {
         Button {
             raw: tl::types::KeyboardButtonWebView {
+                style: None, // TODO: add style
                 text: text.into(),
                 url: url.into(),
             }
@@ -105,21 +110,33 @@ impl Key {
     /// When pressed, the button's text will be sent as a normal message, as if the user had typed it.
     pub fn text<T: Into<String>>(text: T) -> Key {
         Key {
-            raw: tl::types::KeyboardButton { text: text.into() }.into(),
+            raw: tl::types::KeyboardButton {
+                style: None, // TODO: add style
+                text: text.into(),
+            }
+            .into(),
         }
     }
 
     /// Creates a keyboard key to request the user's contact information (including the phone).
     pub fn request_phone<T: Into<String>>(text: T) -> Key {
         Key {
-            raw: tl::types::KeyboardButtonRequestPhone { text: text.into() }.into(),
+            raw: tl::types::KeyboardButtonRequestPhone {
+                style: None, // TODO: add style
+                text: text.into(),
+            }
+            .into(),
         }
     }
 
     /// Creates a keyboard key to request the user's current geo-location.
     pub fn request_geo<T: Into<String>>(text: T) -> Key {
         Key {
-            raw: tl::types::KeyboardButtonRequestGeoLocation { text: text.into() }.into(),
+            raw: tl::types::KeyboardButtonRequestGeoLocation {
+                style: None, // TODO: add style
+                text: text.into(),
+            }
+            .into(),
         }
     }
 
@@ -129,6 +146,7 @@ impl Key {
     pub fn request_poll<T: Into<String>>(text: T) -> Key {
         Key {
             raw: tl::types::KeyboardButtonRequestPoll {
+                style: None, // TODO: add style
                 text: text.into(),
                 quiz: None,
             }
@@ -142,6 +160,7 @@ impl Key {
     pub fn request_quiz<T: Into<String>>(text: T) -> Key {
         Key {
             raw: tl::types::KeyboardButtonRequestPoll {
+                style: None, // TODO: add style
                 text: text.into(),
                 quiz: Some(true),
             }
